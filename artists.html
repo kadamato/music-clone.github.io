@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Web</title>
+
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./musicCard.css" />
+    <link rel="stylesheet" href="./search.css" />
+    <link rel="stylesheet" href="./artists.css" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="menu">
+        <div id="menu__top">
+          <div id="menu__logo">
+            <img src="/images/spotify-icon.svg" alt="spotify-icon" />
+            Spotify
+          </div>
+          <div>
+            <div class="menu__item">
+              <img src="/images/home-icon.svg" alt="home icon" />
+              <a href="/">Home</a>
+            </div>
+            <div class="menu__item">
+              <img src="/images/search-icon.svg" alt="search icon" />
+              <a href="/search.html">Search</a>
+            </div>
+            <div id="categories" class="menu__item">
+              <img src="/images/category-icon.svg" alt="category" />
+              <a href="/artists.html">Artists</a>
+              <div id="submenu">
+                <a href="#uk">UK</a>
+                <a href="#us">US</a>
+                <a href="#korea">Korea</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="favourites">
+          <div class="menu__item" id="favouriteTag">
+            <img src="/images/lib-icon.svg" alt="lib icon" />
+            <a href="#">Favourite</a>
+          </div>
+
+          <div id="favouritesList"></div>
+        </div>
+      </div>
+
+      <div id="main__content">
+        <form class="search" action="">
+          <img
+            src="/images/search-icon.svg"
+            alt="search-icon"
+            class="search__icon"
+          />
+          <input
+            type="text"
+            name="search"
+            id="search"
+            placeholder="Search for artists"
+            class="search__input"
+          />
+        </form>
+
+        <div class="artists"></div>
+        <div class="artistResults"></div>
+        <div id="footer">
+          <div>Design by name</div>
+        </div>
+      </div>
+    </div>
+    <div class="musicPlayer">
+      <div class="musicPlayer__info">
+        <img src="" alt="" class="musicPlayer__info__coverImg" alt="no image" />
+        <div class="musicPlayer__info__song">
+          <div class="musicPlayer__info__song__title"></div>
+        </div>
+        <img
+          src="/images/hear-icon-outline.svg"
+          alt="heart-icon"
+          class="musicPlayer__info__heartIcon"
+        />
+      </div>
+
+      <div class="musicPlayer__tools">
+        <div class="musicPlayer__tools__top">
+          <div class="musicPlayer__tools__top__prevBtn">
+            <img
+              src="/images/prev-icon.svg"
+              alt="prev-icon"
+              class="musicPlayer__tools__top__icon"
+            />
+          </div>
+          <div class="musicPlayer__tools__top__pauseBtn">
+            <img
+              src="/images/pause-icon.svg"
+              alt="pause-icon"
+              class="musicPlayer__tools__top__pauseBtn__icon"
+            />
+          </div>
+          <div class="musicPlayer__tools__top__nextBtn">
+            <img
+              src="/images/next-icon.svg"
+              alt="next-icon"
+              class="musicPlayer__tools__top__icon"
+            />
+          </div>
+        </div>
+        <div class="musicPlayer__tools__timeline">
+          <div class="musicPlayer__tools__timeline__runTime">
+            <div class="musicPlayer__tools__timeline__current">0:00</div>
+            <div class="musicPlayer__tools__timeline__line">
+              <div class="musicPlayer__tools__timeline__line__current"></div>
+            </div>
+            <div class="musicPlayer__tools__timeline__total">2:50</div>
+          </div>
+        </div>
+        <audio
+          class="musicPlayer__tools__audio"
+          src="audio/seeYouAgain.mp3"
+        ></audio>
+      </div>
+      <div class="musicPlayer__pendding"></div>
+    </div>
+
+    <script src="songs.js"></script>
+    <script src="./getFavouriteSongs.js"></script>
+    <script src="./main.js"></script>
+    <script src="./artists.js"></script>
+    <script>
+      getFavouriteSongs();
+
+      const artistBox = document.querySelector(".artists");
+      const searchBtn = document.querySelector(".search");
+      const searchInput = document.querySelector(".search__input");
+      const artistResults = document.querySelector(".artistResults");
+
+      function getArtists(name) {
+        const list = {};
+
+        for (let country in artists) {
+          for (let artist of artists[country]) {
+            if (artist.name.toLowerCase().includes(name.toLowerCase())) {
+              list[country] = [...(list[country] ? list[country] : []), artist];
+            }
+          }
+        }
+
+        return list;
+      }
+
+      function renderArtists(artists) {
+        for (let country in artists) {
+          const artistList = document.createElement("div");
+          artistList.classList.add("artistList");
+
+          const artistTitle = document.createElement("div");
+          artistTitle.classList.add("artistTitle");
+          artistTitle.id = country;
+
+          const artistListItems = document.createElement("div");
+          artistListItems.classList.add("artistListItems");
+          artistTitle.textContent = country;
+
+          for (let artist of artists[country]) {
+            const artistCard = document.createElement("div");
+            artistCard.classList.add("artistCard");
+
+            const artistCard__img = document.createElement("img");
+            artistCard__img.classList.add("artistCard__img");
+            artistCard__img.src = artist.avatar;
+
+            const artistCard__name = document.createElement("div");
+            artistCard__name.classList.add("artistCard__name");
+            artistCard__name.textContent = artist.name;
+
+            artistCard.appendChild(artistCard__img);
+            artistCard.appendChild(artistCard__name);
+
+            artistListItems.appendChild(artistCard);
+
+            artistList.appendChild(artistTitle);
+            artistList.appendChild(artistListItems);
+
+            artistBox.appendChild(artistList);
+          }
+        }
+      }
+
+      renderArtists(artists);
+      searchBtn.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const searchValue = searchInput.value.trim();
+        if (!searchValue) {
+          return;
+        }
+
+        searchInput.value = "";
+        searchInput.blur();
+
+        artistBox.innerText = "";
+        const finalResults = getArtists(searchValue);
+        renderArtists(finalResults);
+      });
+    </script>
+  </body>
+</html>

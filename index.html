@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Web</title>
+
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+
+  <div id="container">
+    <div id="menu">
+      <div id="menu__top">
+        <div id="menu__logo">
+          <img src="/images/spotify-icon.svg" alt="spotify-icon" />
+          Spotify
+        </div>
+        <div>
+          <div class="menu__item">
+            <img src="/images/home-icon.svg" alt="home icon" />
+            <a href="/">Home</a>
+          </div>
+          <div class="menu__item">
+            <img src="/images/search-icon.svg" alt="search icon" />
+            <a href="/search.html">Search</a>
+          </div>
+          <div id="categories" class="menu__item">
+            <img src="/images/category-icon.svg" alt="category" />
+            <a href="/artists.html">Artists</a>
+            <div id="submenu">
+              <a href="#uk">UK</a>
+              <a href="#us">US</a>
+              <a href="#korea">Korea</a>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="favourites">
+        <div class="menu__item" id="favouriteTag">
+          <img src="/images/lib-icon.svg" alt="lib icon" />
+          <div>Favourite</div>
+        </div>
+
+        <div id=favouritesList>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="main__content">
+      <div id="content">
+        <div class="slider">
+          <div class="slides">
+            <img src="https://i.pinimg.com/736x/f6/5a/2b/f65a2bc7d92062a02295a64295a34190.jpg" class="slide"></img>
+            <img src="https://i.pinimg.com/736x/f6/5a/2b/f65a2bc7d92062a02295a64295a34190.jpg" class="slide"></img>
+          </div>
+  
+          <div class="navigation">
+            <div class="prev" onclick="prevSlide()">&#9665;</div>
+            <div class="next" onclick="nextSlide()">&#9655;</div>
+          </div>
+        </div>
+  
+  
+  
+  
+  
+     
+  
+      
+        
+      </div>
+
+      <div id="footer">
+        <div> Design by name </div>
+      </div>
+
+
+    </div>
+  </div>
+
+    <div class="musicPlayer">
+        <div class="musicPlayer__info">
+            <img src="" alt="" class="musicPlayer__info__coverImg" alt="no image"/>
+            <div class="musicPlayer__info__song">
+                <div class="musicPlayer__info__song__title"></div>
+            </div>
+            <img src="/images/hear-icon-outline.svg" alt="heart-icon" class="musicPlayer__info__heartIcon"/>
+        </div>
+
+        <div class="musicPlayer__tools">
+          <div class="musicPlayer__tools__top">
+            <div class="musicPlayer__tools__top__prevBtn">
+              <img src="/images/prev-icon.svg" alt="prev-icon" class="musicPlayer__tools__top__icon"/>
+            </div>
+            <div class="musicPlayer__tools__top__pauseBtn">
+              <img src="/images/pause-icon.svg" alt="pause-icon" class="musicPlayer__tools__top__pauseBtn__icon"/>
+            </div>
+            <div class="musicPlayer__tools__top__nextBtn">
+              <img src="/images/next-icon.svg" alt="next-icon" class="musicPlayer__tools__top__icon"/>
+            </div>
+          </div>
+          <div class="musicPlayer__tools__timeline">
+            <div class="musicPlayer__tools__timeline__runTime">
+              <div class="musicPlayer__tools__timeline__current">0:00</div>
+              <div class="musicPlayer__tools__timeline__line">
+                <div class="musicPlayer__tools__timeline__line__current"></div>
+              </div>
+              <div class="musicPlayer__tools__timeline__total">2:50</div>
+            </div>
+          </div>
+          <audio class="musicPlayer__tools__audio" src="audio/seeYouAgain.mp3">
+          </audio>
+        </div>
+        <div  class="musicPlayer__sound">
+          <img src="/images/sound-on.svg" alt="sound-icon" class="musicPlayer__sound__icon" />
+          <div class="musicPlayer__sound__line">
+            <div class="musicPlayer__sound__line__current"></div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const slides = document.querySelector('.slides');
+      let currentIndex = 0;
+
+      function showSlide(index) {
+        const newTransformValue = -index * 100 + '%';
+        slides.style.transform = 'translateX(' + newTransformValue + ')';
+        currentIndex = index;
+      }
+
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.children.length;
+        showSlide(currentIndex);
+      }
+
+      function prevSlide() {
+        currentIndex = (currentIndex - 1 + slides.children.length) % slides.children.length;
+        showSlide(currentIndex);
+      }
+
+      // Set up event listeners
+      document.querySelector('.next').addEventListener('click', nextSlide);
+      document.querySelector('.prev').addEventListener('click', prevSlide);
+    });
+
+  </script>
+
+
+  <script src="songs.js"></script>
+  <script src="./getFavouriteSongs.js"></script>
+  <script src="./main.js"></script>
+ 
+
+</body>
+
+</html>

@@ -1,0 +1,403 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+html {
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+}
+
+#container {
+  display: flex;
+  padding: 0.5rem;
+  height: calc(100vh);
+  transition: all 0.3s ease-out;
+}
+
+#menu {
+  width: 24%;
+  height: 100%;
+  color: #fff;
+  font-size: 1.6rem;
+}
+
+#menu__top {
+  background-color: #121212;
+  padding: 1.5rem;
+  border-radius: 0.8rem;
+}
+
+#menu__logo {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  margin: 0 0 2.4rem 0;
+}
+
+#menu__logo > img {
+  width: 2.8rem;
+  height: 2.8rem;
+  margin: 0 0.5rem 0 0;
+}
+
+.menu__item {
+  display: flex;
+  align-items: center;
+  margin: 0 0 2.4rem 0;
+  cursor: pointer;
+}
+
+.menu__item > img {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 1.5rem 0 0;
+}
+
+#menu a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+#categories {
+  position: relative;
+  margin: 0;
+}
+
+#submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  width: 18rem;
+  left: 0;
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.8rem;
+}
+
+#submenu a {
+  color: black;
+  border-radius: 0.8rem;
+  padding: 1rem;
+  display: block;
+}
+#submenu a:hover {
+  background-color: #ededed;
+}
+
+#categories:hover #submenu {
+  display: block;
+}
+
+#favourites {
+  margin: 0.8rem 0;
+  background-color: #121212;
+  padding: 0 0 1rem 0;
+  border-radius: 0.8rem;
+}
+
+#favouriteTag {
+  padding: 1.5rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+#main__content {
+  width: 76%;
+  padding: 1.5rem;
+  margin: 0 0 0 0.5rem;
+  background-color: #121212;
+  border-radius: 0.8rem;
+  overflow-y: scroll;
+  color: #fff;
+}
+
+.listTitle {
+  font-size: 2.2rem !important;
+  margin: 1.5rem 0;
+  text-transform: capitalize;
+}
+
+.listItems {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.5rem;
+}
+
+.listItem {
+  width: 18%;
+  flex-grow: 1;
+  padding: 1.4rem;
+  background-color: #181818;
+  border-radius: 0.8rem;
+  position: relative;
+  margin: 0.5rem;
+  transition: all 0.3s ease-out;
+  max-width: 18%;
+}
+
+.listItemImg {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.listItemTitle {
+  margin: 1rem 0 0;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.listItemPlayBtn {
+  opacity: 0;
+  position: absolute;
+  top: 55%;
+  right: 15%;
+  padding: 1rem;
+  border-radius: 3rem;
+  background-color: #1ed760;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease-out;
+}
+
+.listItem:hover .listItemPlayBtn {
+  transform: translateY(-1rem);
+  opacity: 1;
+}
+
+.listItem:hover {
+  background-color: #282828;
+  cursor: pointer;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 22rem;
+  border-radius: 1rem;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  flex: 0 0 100%;
+  height: 100%;
+}
+
+.navigation {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.prev {
+  margin-left: 1rem;
+}
+.next {
+  margin-right: 1rem;
+}
+.prev,
+.next {
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.prev:hover,
+.next:hover {
+  color: #1db954;
+}
+
+/* music player */
+
+.musicPlayer {
+  display: flex;
+  align-items: center;
+  background-color: #000000;
+  bottom: 0;
+  width: 100%;
+  color: #fff;
+  height: 8rem;
+  box-sizing: border-box;
+  font-size: 1.4rem;
+  justify-content: space-between;
+  display: none;
+  padding: 1rem;
+}
+.musicPlayer__info {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+.musicPlayer__info__coverImg {
+  width: 5.5rem;
+  height: 5.5rem;
+  object-fit: cover;
+  border-radius: 0.8rem;
+}
+
+.musicPlayer__info__song {
+  margin: 0 1.5rem;
+}
+
+.musicPlayer__info__heartIcon {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.musicPlayer__tools {
+  width: 40%;
+}
+
+.musicPlayer__tools__top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 1rem 0;
+}
+
+.musicPlayer__tools__top__pauseBtn {
+  margin: 0 2.4rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.musicPlayer__tools__top__pauseBtn:active {
+  transform: scale(0.95);
+}
+
+.musicPlayer__tools__top__pauseBtn__icon {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+.musicPlayer__tools__timeline__line {
+  width: 100%;
+  height: 0.4rem;
+  background-color: #fff;
+  position: relative;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.musicPlayer__tools__timeline__line__current {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3%;
+  height: 0.4rem;
+  background-color: #1db954;
+  transition: all 0.3s ease-out;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.musicPlayer__tools__timeline__runTime {
+  display: flex;
+  align-items: center;
+}
+
+.musicPlayer__tools__timeline__current,
+.musicPlayer__tools__timeline__total {
+  font-size: 1.2rem;
+  margin: 0 1rem;
+  font-weight: bold;
+  color: rgb(207, 207, 207);
+}
+
+.musicPlayer__sound {
+  width: 20%;
+  display: flex;
+  align-items: center;
+}
+
+.musicPlayer__sound__icon {
+  width: 1.8rem;
+  height: 1.8rem;
+  margin: 0 0.8rem 0 0;
+}
+
+.musicPlayer__sound__line {
+  width: 50%;
+  height: 0.4rem;
+  background-color: #fff;
+  position: relative;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+.musicPlayer__sound__line__current {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0.4rem;
+  background-color: #1db954;
+  transition: all 0.3s ease-out;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+/* favourit*/
+
+#favouritesList {
+  padding: 0 0.7rem;
+}
+
+.favouriteItem {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  margin: 0.5rem 0;
+}
+.favouriteItem:hover {
+  background-color: #282828;
+}
+
+.favouriteItem__img {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: 0 1.5rem 0 0;
+  border-radius: 0.8rem;
+  object-fit: cover;
+}
+
+.favouriteItem__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+#footer {
+  color: white;
+  height: 15rem;
+  font-size: 1.5rem;
+  border-top: 0.2rem solid #282828;
+  display: flex;
+  align-items: center;
+}
